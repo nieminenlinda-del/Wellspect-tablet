@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "npx --yes serve@14.2.4 out -l 3000",
     "lint": "eslint .",
-    "test": "npx --yes tsx@4.20.5 scripts/validate-content.ts"
+    "test": "npx --yes tsx@4.20.5 scripts/validate-content.ts",
+    "fetch-product-images": "bash scripts/fetch-product-images.sh"
   },
   "engines": {
     "node": ">=20"

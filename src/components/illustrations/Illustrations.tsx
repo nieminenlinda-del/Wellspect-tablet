@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import type { IllustrationId } from "@/content/types";
+import { isProductPackshot, PRODUCT_PACKSHOTS } from "@/content/productPackshots";
+import { withBase } from "@/lib/paths";
 
 type Props = {
   id: IllustrationId;
@@ -8,6 +10,17 @@ type Props = {
 };
 
 export function Illustration({ id, className = "h-full w-full", title }: Props) {
+  if (isProductPackshot(id)) {
+    return (
+      <img
+        src={withBase(PRODUCT_PACKSHOTS[id])}
+        alt={title ?? ""}
+        className={`${className} object-contain`}
+        draggable={false}
+      />
+    );
+  }
+
   const svg = illustrations[id];
   return (
     <svg
@@ -27,64 +40,7 @@ const mid = "#4A90C8";
 const soft = "#D6E8F4";
 const deep = "#003F73";
 
-const illustrations: Record<IllustrationId, ReactNode> = {
-  "origo-pack": (
-    <>
-      <rect x="48" y="10" width="64" height="100" rx="10" fill={soft} stroke={ink} strokeWidth="2.5" />
-      <path d="M56 18h48c3 0 6 3 6 6v18H50V24c0-3 3-6 6-6z" fill={ink} />
-      <path d="M62 52c18-10 36 8 36 22" fill="none" stroke={mid} strokeWidth="4" />
-      <rect x="70" y="78" width="20" height="18" rx="4" fill={mid} />
-    </>
-  ),
-  "primo-pack": (
-    <>
-      <rect x="42" y="18" width="76" height="84" rx="8" fill={soft} stroke={ink} strokeWidth="2.5" />
-      <rect x="50" y="28" width="60" height="28" rx="4" fill={ink} />
-      <path d="M70 68h20v22h-20z" fill={mid} />
-    </>
-  ),
-  "classic-cath": (
-    <>
-      <path d="M28 78c28-38 76-38 104 0" fill="none" stroke={soft} strokeWidth="10" />
-      <path d="M30 76c28-36 74-36 100 0" fill="none" stroke={ink} strokeWidth="4" />
-      <rect x="118" y="68" width="22" height="16" rx="4" fill="#2f8f5b" />
-    </>
-  ),
-  "sense-pack": (
-    <>
-      <rect x="54" y="16" width="52" height="88" rx="16" fill={soft} stroke={ink} strokeWidth="2.5" />
-      <circle cx="80" cy="40" r="10" fill={ink} />
-      <rect x="70" y="62" width="20" height="26" rx="6" fill={mid} />
-    </>
-  ),
-  "elle-pack": (
-    <>
-      <path d="M40 88h52v-44c0-16 12-28 28-28h8" fill="none" stroke={ink} strokeWidth="8" strokeLinecap="round" />
-      <rect x="36" y="80" width="60" height="18" rx="6" fill={mid} />
-    </>
-  ),
-  "hydrokit-pack": (
-    <>
-      <rect x="28" y="24" width="104" height="76" rx="12" fill={soft} stroke={ink} strokeWidth="2.5" />
-      <path d="M40 48h48l12 28H52z" fill={mid} />
-      <rect x="96" y="40" width="24" height="44" rx="6" fill={ink} />
-    </>
-  ),
-  "navina-smart": (
-    <>
-      <rect x="52" y="14" width="56" height="92" rx="14" fill={soft} stroke={ink} strokeWidth="2.5" />
-      <circle cx="80" cy="48" r="16" fill="white" stroke={ink} strokeWidth="3" />
-      <circle cx="80" cy="48" r="6" fill={ink} />
-      <rect x="64" y="78" width="32" height="10" rx="5" fill={mid} />
-    </>
-  ),
-  "navina-classic": (
-    <>
-      <rect x="36" y="28" width="88" height="64" rx="10" fill={soft} stroke={ink} strokeWidth="2.5" />
-      <path d="M52 60h56" stroke={ink} strokeWidth="6" strokeLinecap="round" />
-      <circle cx="80" cy="60" r="8" fill={mid} />
-    </>
-  ),
+const illustrations: Record<Exclude<IllustrationId, keyof typeof PRODUCT_PACKSHOTS>, ReactNode> = {
   "anatomy-male": (
     <>
       <ellipse cx="80" cy="58" rx="28" ry="36" fill={soft} stroke={ink} strokeWidth="2.5" />

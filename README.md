@@ -62,6 +62,14 @@ Do **not** invent dosing, irrigation volumes, or clinical claims. Keep instructi
 
 See [CONTENT-MAP.md](./CONTENT-MAP.md) for every route.
 
+## Product assets
+
+Category tiles and product hubs for the eight LoFric / Navina products use **official Digizuite packshots** copied from wellspect.se into `public/products/` (not hotlinked). Filenames match `IllustrationId` (`origo-pack.png`, `sense-pack.png`, …). Anatomy, film, swan, contact, bowel, and snabbguide step icons remain SVG.
+
+Refresh the PNGs with `scripts/fetch-product-images.sh`. Source URLs and the IllustrationId map are in [docs/PRODUCT-IMAGES.md](./docs/PRODUCT-IMAGES.md). After swapping binaries, bump `CACHE_NAME` in `public/sw.js` so offline kiosks pick up the new files.
+
+These images and the LoFric® / Navina™ names remain Wellspect’s trademarks. This repository is a clinic companion, not a substitute for package artwork or the IFU.
+
 ## Kiosk mode
 
 - Open `/info/` and tap **Aktivera kioskläge**, or start at `/?kiosk=1`.
