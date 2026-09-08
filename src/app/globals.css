@@ -279,6 +279,7 @@ button {
 }
 
 .market-chip {
+  position: relative;
   display: inline-flex;
   min-height: var(--tap-min);
   min-width: 5.6rem;
@@ -304,6 +305,21 @@ button {
 .market-chip--active {
   background: #fff;
   color: var(--ws-blue-deep);
+}
+
+.market-chip--language {
+  margin-left: 0.45rem;
+}
+
+.market-chip--language::before {
+  content: "";
+  position: absolute;
+  left: -0.5rem;
+  top: 22%;
+  bottom: 22%;
+  width: 1px;
+  background: currentColor;
+  opacity: 0.45;
 }
 
 .market-selector--light {

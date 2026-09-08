@@ -42,7 +42,7 @@ export function MarketSelector({ tone = "light" }: Props) {
             role="radio"
             aria-checked={selected}
             aria-label={aria}
-            className={`market-chip tap-target ${selected ? "market-chip--active" : ""}`}
+            className={`market-chip tap-target ${selected ? "market-chip--active" : ""} ${option.kind === "language" ? "market-chip--language" : ""}`}
             onClick={() => setLocale(option.id)}
           >
             {Flag ? <Flag /> : <span className="market-en-badge" aria-hidden>EN</span>}
