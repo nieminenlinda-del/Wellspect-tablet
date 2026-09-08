@@ -38,10 +38,10 @@ export function HomeScreen() {
             aria-hidden
           >
             <path
-              d="M28 24c2-14 36-18 64-14h616c28-4 62 0 64 14"
+              d="M36 8c0 12 28 14 52 14h624c24 0 52-2 52-14"
               fill="none"
               stroke="white"
-              strokeWidth="1.4"
+              strokeWidth="1.5"
               strokeLinecap="round"
             />
           </svg>
