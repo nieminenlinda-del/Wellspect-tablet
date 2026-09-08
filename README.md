@@ -15,6 +15,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+**Live preview (GitHub Pages):** [https://nieminenlinda-del.github.io/Wellspect-tablet/](https://nieminenlinda-del.github.io/Wellspect-tablet/)
+
+Pages deploys from `main` via `.github/workflows/deploy-pages.yml`. If that URL 404s, set **Settings → Pages → Source** to **GitHub Actions** once, then re-run the workflow.
+
 ```bash
 npm run build    # static export to /out
 npm start        # serves the exported site
@@ -69,7 +73,7 @@ See [CONTENT-MAP.md](./CONTENT-MAP.md) for every route.
 - Wire real clinic videos and PDF guides (replace placeholders, update `PRECACHE` in `public/sw.js` if you want them offline on first launch).
 - Add Finnish / English by cloning `strings.ts` and content modules behind a locale switch.
 - Import remaining kiosk slides (~74) as guides using the same `Guide` shape.
-- Host `out/` on any static host (GitHub Pages, Netlify, clinic NAS) or serve from the tablet.
+- Host `out/` on any static host (GitHub Pages, Netlify, clinic NAS) or serve from the tablet. GitHub Pages uses `GITHUB_PAGES=true` so the app is served under `/Wellspect-tablet/`.
 
 ## Medical framing
 

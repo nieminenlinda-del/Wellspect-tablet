@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { IDLE_MS, readKioskFlag, requestKioskFullscreen, writeKioskFlag } from "@/lib/kiosk";
+import { homePath } from "@/lib/paths";
 
 export function KioskController() {
   useEffect(() => {
@@ -37,7 +38,10 @@ export function KioskController() {
 }
 
 function goHome() {
-  if (window.location.pathname !== "/") {
-    window.location.href = "/";
+  const home = homePath();
+  const here = window.location.pathname.replace(/\/$/, "") || "/";
+  const target = home.replace(/\/$/, "") || "/";
+  if (here !== target) {
+    window.location.href = home.endsWith("/") ? home : `${home}/`;
   }
 }

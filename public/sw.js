@@ -1,5 +1,10 @@
 /* Wellspect companion shell cache. Keep CACHE_NAME in sync when assets change. */
-const CACHE_NAME = "wellspect-shell-v1";
+const CACHE_NAME = "wellspect-shell-v2";
+
+function withBase(path) {
+  const scopePath = new URL(self.registration.scope).pathname.replace(/\/$/, "");
+  return `${scopePath}${path}`;
+}
 
 const PRECACHE = [
   "/",
@@ -13,7 +18,7 @@ const PRECACHE = [
   "/manifest.webmanifest",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
-];
+].map(withBase);
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -52,7 +57,7 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         })
-        .catch(() => cached || caches.match("/"));
+        .catch(() => cached || caches.match(withBase("/")));
 
       return cached || fetched;
     }),
