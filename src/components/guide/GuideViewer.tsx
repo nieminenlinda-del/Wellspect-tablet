@@ -31,9 +31,9 @@ export function GuideViewer({ guide }: { guide: Guide }) {
         {page.steps.map((step) => (
           <li
             key={step.id}
-            className="grid gap-4 rounded-3xl border border-ws-line bg-ws-blue-soft/40 p-4 sm:grid-cols-[8.5rem_1fr] sm:p-5"
+            className="grid gap-4 rounded-3xl border border-ws-line bg-ws-blue-soft/40 p-4 sm:grid-cols-[var(--guide-illust)_1fr] sm:p-5"
           >
-            <div className="h-28">
+            <div className="h-[var(--guide-illust)]">
               <Illustration id={step.illustration} />
             </div>
             <div>
@@ -51,7 +51,7 @@ export function GuideViewer({ guide }: { guide: Guide }) {
           type="button"
           onClick={() => setIndex((value) => Math.max(0, value - 1))}
           disabled={index === 0}
-          className="inline-flex min-h-14 min-w-14 items-center justify-center rounded-full border-2 border-ws-blue text-ws-blue disabled:opacity-30"
+          className="inline-flex min-h-[var(--tap-min)] min-w-[var(--tap-min)] items-center justify-center rounded-full border-2 border-ws-blue text-ws-blue disabled:opacity-30"
           aria-label={strings.nav.previous}
         >
           <ChevronGlyph direction="left" />
@@ -72,7 +72,7 @@ export function GuideViewer({ guide }: { guide: Guide }) {
           type="button"
           onClick={() => setIndex((value) => Math.min(total - 1, value + 1))}
           disabled={index === total - 1}
-          className="inline-flex min-h-14 min-w-14 items-center justify-center rounded-full border-2 border-ws-blue text-ws-blue disabled:opacity-30"
+          className="inline-flex min-h-[var(--tap-min)] min-w-[var(--tap-min)] items-center justify-center rounded-full border-2 border-ws-blue text-ws-blue disabled:opacity-30"
           aria-label={strings.nav.next}
         >
           <ChevronGlyph direction="right" />

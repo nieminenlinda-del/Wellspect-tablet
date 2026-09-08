@@ -9,7 +9,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="mt-6 inline-flex min-h-14 items-center justify-center rounded-full bg-ws-blue px-6 font-semibold text-white"
+        className="mt-6 inline-flex min-h-[var(--tap-min)] items-center justify-center rounded-full bg-ws-blue px-6 font-semibold text-white"
       >
         Huvudmeny
       </Link>

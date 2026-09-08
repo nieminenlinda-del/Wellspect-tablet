@@ -3,7 +3,7 @@ import type { Article } from "@/content/types";
 
 export function ArticleView({ article }: { article: Article }) {
   return (
-    <article className="mx-auto max-w-3xl space-y-4">
+    <article className="mx-auto max-w-[var(--read-max)] space-y-4">
       {article.kicker ? (
         <p className="text-sm font-semibold uppercase tracking-[0.14em] text-ws-blue">
           {article.kicker}

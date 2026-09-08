@@ -55,7 +55,7 @@ export function InfoPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto max-w-[var(--read-max)] space-y-6">
       <p className="text-base leading-relaxed text-ws-ink sm:text-lg">{strings.info.intro}</p>
 
       <section>
@@ -64,7 +64,7 @@ export function InfoPage() {
           {icons.map((icon) => (
             <li
               key={icon.label}
-              className="flex items-center gap-4 rounded-2xl border border-ws-line px-3 py-3"
+              className="flex min-h-[var(--tap-min)] items-center gap-4 rounded-2xl border border-ws-line px-3 py-3"
             >
               <span className="flex min-h-12 min-w-12 items-center justify-center text-ws-blue">
                 {icon.node}
@@ -84,7 +84,7 @@ export function InfoPage() {
         <button
           type="button"
           onClick={() => void toggleKiosk()}
-          className="mt-4 min-h-14 rounded-full bg-ws-blue px-6 text-base font-semibold text-white"
+          className="mt-4 min-h-[var(--tap-min)] rounded-full bg-ws-blue px-6 text-base font-semibold text-white"
         >
           {kiosk ? strings.info.kioskDisable : strings.info.kioskEnable}
         </button>

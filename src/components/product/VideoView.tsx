@@ -3,7 +3,7 @@ import type { VideoItem } from "@/content/types";
 
 export function VideoView({ video }: { video: VideoItem }) {
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-[var(--video-max)]">
       <div className="overflow-hidden rounded-3xl border-2 border-ws-blue bg-ws-blue-deep text-white">
         {video.src ? (
           <video

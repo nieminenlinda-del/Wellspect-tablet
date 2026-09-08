@@ -5,7 +5,7 @@ import type { ProductHub } from "@/content/types";
 
 export function ProductHubView({ hub }: { hub: ProductHub }) {
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_14rem]">
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(12rem,18rem)]">
       <div>
         <p className="font-display text-sm font-bold tracking-wide text-ws-blue">
           {hub.kicker}
@@ -29,7 +29,7 @@ export function ProductHubView({ hub }: { hub: ProductHub }) {
         </ul>
       </div>
       <aside className="flex flex-col items-center justify-between gap-4">
-        <div className="h-44 w-full max-w-[13rem]">
+        <div className="h-[var(--hub-visual)] w-full max-w-[18rem]">
           <Illustration id={hub.productVisual} title={hub.title} />
         </div>
         {hub.ecoLabel ? (

@@ -13,6 +13,81 @@
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --chrome-h: 4.75rem;
+
+  /*
+   * Layout scale for Galaxy Tab A8 / A9+ (and desktop Pages preview).
+   * Physical panel is 1920×1200; Android Chrome is typically DPR 1.5 →
+   * 1280×800 landscape / 800×1280 portrait. Chrome device mode at
+   * 1920×1200 / 1200×1920 (DPR 1) is also supported.
+   */
+  --page-pad-x: 1rem;
+  --page-pad-y: 1rem;
+  --app-max: 72rem;
+  --home-max: 64rem;
+  --read-max: 48rem;
+  --video-max: 48rem;
+  --tap-min: 3.5rem;
+  --journey-size: 9rem;
+  --journey-text: 1.125rem;
+  --home-title: clamp(1.7rem, 5vw, 3.4rem);
+  --home-main-py: 1.5rem;
+  --home-grid-mt: 2rem;
+  --tile-min-h: 9.5rem;
+  --chrome-title: 1.5rem;
+  --hub-visual: 11rem;
+  --guide-illust: 7rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-pad-x: clamp(1.25rem, 2.2vw, 2rem);
+    --page-pad-y: 1.15rem;
+    --journey-size: clamp(10rem, 28vmin, 14rem);
+    --journey-text: 1.25rem;
+    --tile-min-h: 10.5rem;
+    --chrome-title: 2.25rem;
+    --hub-visual: 13rem;
+    --guide-illust: 8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-pad-x: clamp(1.5rem, 2.6vw, 2.75rem);
+    --app-max: min(90rem, 100%);
+    --home-max: min(86rem, 100%);
+    --read-max: min(52rem, 100%);
+    --video-max: min(64rem, 100%);
+    --tap-min: 4rem;
+    --journey-size: clamp(11rem, 22vmin, 17rem);
+    --journey-text: clamp(1.2rem, 2.2vmin, 1.55rem);
+    --tile-min-h: 12.5rem;
+    --chrome-title: clamp(1.85rem, 2.6vw, 2.5rem);
+    --hub-visual: 16rem;
+    --guide-illust: 10rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --app-max: min(96rem, 100%);
+    --home-max: min(92rem, 100%);
+    --tile-min-h: 13.5rem;
+  }
+}
+
+/* Real Tab A8/A9+ landscape CSS (~1280×800) — keep home on one screen */
+@media (orientation: landscape) and (max-height: 900px) {
+  :root {
+    --home-main-py: 0.45rem;
+    --home-grid-mt: 1.05rem;
+    --home-title: clamp(1.45rem, 4.8vh, 2.4rem);
+    --journey-size: clamp(8.75rem, 28vmin, 13.5rem);
+    --chrome-h: 4.25rem;
+    --page-pad-y: 0.7rem;
+    --tile-min-h: 10.75rem;
+    --hub-visual: 12.5rem;
+  }
 }
 
 @theme inline {
@@ -31,8 +106,10 @@
 html,
 body {
   min-height: 100%;
+  min-height: 100dvh;
   background: var(--ws-bg);
   color: var(--ws-ink);
+  overflow-x: hidden;
 }
 
 body {
@@ -91,6 +168,37 @@ button {
   border-top-right-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
+}
+
+.journey-grid {
+  display: grid;
+  width: 100%;
+  max-width: var(--home-max);
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .journey-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.35rem 1.5rem;
+  }
+
+  .journey-grid > :last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Three circles in a row once width can hold them (Tab landscape + 1200 portrait). */
+@media (min-width: 1100px) {
+  .journey-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .journey-grid > :last-child {
+    grid-column: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
