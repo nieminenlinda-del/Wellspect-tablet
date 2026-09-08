@@ -1,0 +1,32 @@
+{
+  "name": "wellspect-tablet",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wellspect patient companion PWA for LoFric and Navina clinic kiosks",
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0 --port 3000",
+    "build": "next build",
+    "start": "npx --yes serve@14.2.4 out -l 3000",
+    "lint": "eslint .",
+    "test": "npx --yes tsx@4.20.5 scripts/validate-content.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "next": "^15.5.24",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "eslint": "^9.31.0",
+    "eslint-config-next": "^15.5.24",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.3"
+  }
+}
