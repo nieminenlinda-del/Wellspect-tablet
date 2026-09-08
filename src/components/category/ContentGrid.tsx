@@ -9,12 +9,12 @@ export function ContentGrid({ journey }: { journey: Journey }) {
       <div className="pointer-events-none absolute right-0 top-24 hidden h-[28rem] w-24 opacity-40 lg:block">
         <BubbleColumn />
       </div>
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {journey.tiles.map((tile) => (
           <li key={tile.id}>
             <Link
               href={tile.href}
-              className="tile-notch flex min-h-[9.5rem] flex-col justify-between border-2 border-ws-blue bg-white p-3 transition hover:bg-ws-blue-soft/60 sm:min-h-[10.5rem] sm:p-4"
+              className="tile-notch category-tile flex flex-col justify-between border-2 border-ws-blue bg-white p-3 transition hover:bg-ws-blue-soft/60 sm:p-4"
             >
               <div className="flex items-start justify-between gap-3">
                 <h2 className="font-display text-xl font-semibold text-ws-blue-deep">
@@ -26,7 +26,7 @@ export function ContentGrid({ journey }: { journey: Journey }) {
                   </span>
                 ) : null}
               </div>
-              <div className="mx-auto h-20 w-32 sm:h-24 sm:w-36">
+              <div className="mx-auto h-20 w-32 sm:h-24 sm:w-36 lg:h-28 lg:w-40">
                 <Illustration id={tile.illustration} title={tile.title} />
               </div>
               {tile.caption ? (

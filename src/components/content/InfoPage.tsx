@@ -84,7 +84,7 @@ export function InfoPage() {
         <button
           type="button"
           onClick={() => void toggleKiosk()}
-          className="mt-4 min-h-14 rounded-full bg-ws-blue px-6 text-base font-semibold text-white"
+          className="tap-target mt-4 rounded-full bg-ws-blue px-6 text-base font-semibold text-white"
         >
           {kiosk ? strings.info.kioskDisable : strings.info.kioskEnable}
         </button>

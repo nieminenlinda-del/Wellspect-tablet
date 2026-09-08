@@ -13,6 +13,10 @@
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --chrome-h: 4.75rem;
+  --app-max: 72rem;
+  --content-pad-x: 1rem;
+  --home-circle: 9rem;
+  --tap-min: 3.5rem;
 }
 
 @theme inline {
@@ -24,13 +28,69 @@
   --color-ws-muted: var(--ws-muted);
   --color-ws-line: var(--ws-line);
   --color-ws-swan: var(--ws-swan);
-  --font-sans: var(--font-source), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-manrope), var(--font-source), sans-serif;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --content-pad-x: 1.75rem;
+    --home-circle: 11rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --home-circle: 12rem;
+    --tap-min: 3.75rem;
+  }
+}
+
+/* Landscape tablets, including Galaxy Tab A8 / A9+ (~1920×1200). */
+@media (min-width: 900px) and (orientation: landscape) {
+  :root {
+    --app-max: 86rem;
+    --content-pad-x: 2.25rem;
+    --home-circle: clamp(11.5rem, 20vmin, 15.5rem);
+    --chrome-h: 5rem;
+  }
+}
+
+@media (min-width: 1600px) and (orientation: landscape) {
+  :root {
+    --app-max: 94rem;
+    --content-pad-x: 2.75rem;
+    --home-circle: clamp(13rem, 22vmin, 17rem);
+  }
+}
+
+/* Portrait tablets, including Galaxy Tab A8 / A9+ (~1200×1920). */
+@media (min-width: 768px) and (orientation: portrait) {
+  :root {
+    --app-max: min(72rem, 94vw);
+    --content-pad-x: 1.75rem;
+    --home-circle: clamp(10.5rem, 24vw, 14.5rem);
+    --tap-min: 3.75rem;
+  }
+}
+
+/* Keep chrome compact when landscape height is limited (e.g. 1280×800 CSS). */
+@media (orientation: landscape) and (max-height: 850px) {
+  :root {
+    --chrome-h: 4.25rem;
+    --home-circle: clamp(8.5rem, 18vmin, 12.5rem);
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html,
 body {
   min-height: 100%;
+  max-width: 100%;
   background: var(--ws-bg);
   color: var(--ws-ink);
 }
@@ -38,6 +98,7 @@ body {
 body {
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 body.kiosk-mode {
@@ -91,6 +152,110 @@ button {
   border-top-right-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
+}
+
+.tap-target {
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+}
+
+.journey-grid {
+  display: grid;
+  width: 100%;
+  max-width: 48rem;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .journey-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 42rem;
+    gap: 1.5rem;
+  }
+
+  .journey-grid > :last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 900px) and (orientation: landscape) {
+  .journey-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 72rem;
+    gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  }
+
+  .journey-grid > :last-child {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .journey-grid {
+    max-width: 38rem;
+    gap: 1.75rem;
+  }
+}
+
+.journey-circle {
+  display: flex;
+  height: var(--home-circle);
+  width: var(--home-circle);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 3px solid #fff;
+  background: rgb(255 255 255 / 0.05);
+  padding: 1rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.35rem + 1.4vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #fff;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.15);
+  backdrop-filter: blur(2px);
+  transition: background-color 150ms ease;
+}
+
+.journey-circle:hover {
+  background: rgb(255 255 255 / 0.15);
+}
+
+.category-tile {
+  min-height: 9.5rem;
+}
+
+@media (min-width: 640px) {
+  .category-tile {
+    min-height: 10.5rem;
+  }
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .category-tile {
+    min-height: 12rem;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .category-tile {
+    min-height: 11.25rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 850px) {
+  .home-title {
+    font-size: clamp(1.35rem, 4.2vh, 2.5rem);
+    letter-spacing: 0.1em;
+  }
+
+  .home-main {
+    padding-block: 0.35rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

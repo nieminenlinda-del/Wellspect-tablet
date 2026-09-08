@@ -1,21 +1,16 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
-import { Manrope, Source_Sans_3 } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { KioskController } from "@/components/chrome/KioskController";
 import { PwaRegister } from "@/components/chrome/PwaRegister";
 import { strings } from "@/content/strings";
 import "./globals.css";
 
-const sourceSans = Source_Sans_3({
+const montserrat = Montserrat({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-source",
+  variable: "--font-montserrat",
   display: "swap",
-});
-
-const manrope = Manrope({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-manrope",
-  display: "swap",
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -48,12 +43,14 @@ export const viewport: Viewport = {
   themeColor: "#005A9C",
   width: "device-width",
   initialScale: 1,
+  minimumScale: 1,
   viewportFit: "cover",
+  interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang={strings.locale} className={`${sourceSans.variable} ${manrope.variable}`}>
+    <html lang={strings.locale} className={`${montserrat.variable} h-full`}>
       <body className="font-sans antialiased">
         <a className="skip-link" href="#innehall">
           {strings.home.skip}
