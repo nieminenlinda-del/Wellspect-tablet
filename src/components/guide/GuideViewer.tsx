@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { PageHeading } from "@/components/chrome/PageHeading";
 import { ChevronGlyph, MultiPageGlyph } from "@/components/chrome/NavIcons";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
 import { Illustration } from "@/components/illustrations/Illustrations";
-import { strings } from "@/content/strings";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import type { Guide } from "@/content/types";
 
 export function GuideViewer({ guide }: { guide: Guide }) {
+  const strings = useStrings();
   const [index, setIndex] = useState(0);
   const total = guide.pages.length;
   const page = guide.pages[index];
@@ -23,23 +26,22 @@ export function GuideViewer({ guide }: { guide: Guide }) {
   if (!page) return null;
 
   return (
-    <div>
-      <p className="max-w-3xl text-sm leading-relaxed text-ws-muted">{guide.intro}</p>
-      <h2 className="mt-4 font-display text-2xl text-ws-blue-deep sm:text-3xl">{guide.title}</h2>
+    <div className="content-page">
+      <PageHeading title={guide.productName} />
+      <p className="content-lede">{guide.intro}</p>
+      <FallbackNote />
+      <h2 className="mt-5 font-display text-2xl font-light text-ws-blue-deep sm:text-3xl">
+        {guide.title}
+      </h2>
 
-      <ol className="mt-6 space-y-5">
+      <ol className="mt-6 space-y-4">
         {page.steps.map((step) => (
-          <li
-            key={step.id}
-            className="grid gap-4 rounded-3xl border border-ws-line bg-ws-blue-soft/40 p-4 sm:grid-cols-[8.5rem_1fr] sm:p-5"
-          >
-            <div className="h-28">
+          <li key={step.id} className="guide-step">
+            <div className="h-28 sm:h-32">
               <Illustration id={step.illustration} />
             </div>
             <div>
-              <p className="font-display text-lg font-semibold text-ws-blue">
-                {step.number}.
-              </p>
+              <p className="font-display text-lg font-semibold text-ws-blue">{step.number}.</p>
               <p className="mt-1 text-base leading-relaxed text-ws-ink sm:text-lg">{step.body}</p>
             </div>
           </li>

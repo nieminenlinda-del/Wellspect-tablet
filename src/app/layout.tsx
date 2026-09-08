@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import { KioskController } from "@/components/chrome/KioskController";
 import { PwaRegister } from "@/components/chrome/PwaRegister";
+import { SkipLink } from "@/components/i18n/LocaleBits";
+import { LocaleProvider } from "@/components/i18n/LocaleProvider";
 import { strings } from "@/content/strings";
 import "./globals.css";
 
@@ -52,12 +54,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={strings.locale} className={`${montserrat.variable} h-full`}>
       <body className="font-sans antialiased">
-        <a className="skip-link" href="#innehall">
-          {strings.home.skip}
-        </a>
-        <KioskController />
-        <PwaRegister />
-        {children}
+        <LocaleProvider>
+          <SkipLink />
+          <KioskController />
+          <PwaRegister />
+          {children}
+        </LocaleProvider>
       </body>
     </html>
   );

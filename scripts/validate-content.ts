@@ -1,6 +1,9 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { allRoutes, contentMapEntries, resolvePage } from "../src/content/catalog";
+import { allRoutes, contentMapEntries, journeyList, resolvePage } from "../src/content/catalog";
+import { parentHref, splitProductTitle } from "../src/lib/chrome";
+import { getStrings } from "../src/content/i18n";
+import { parseLocale } from "../src/lib/locale";
 import { PRODUCT_PACKSHOTS } from "../src/content/productPackshots";
 
 const routes = allRoutes();
@@ -49,4 +52,55 @@ for (const [id, publicPath] of Object.entries(PRODUCT_PACKSHOTS)) {
 console.log(`Validated ${routes.length} routes and ${Object.keys(PRODUCT_PACKSHOTS).length} product packshots`);
 for (const entry of map.slice(0, 8)) {
   console.log(`- ${entry.path}  ${entry.label}`);
+}
+
+for (const journey of journeyList) {
+  if (!journey.intro || !journey.kicker || journey.homeLines.length !== 2) {
+    throw new Error(`Journey ${journey.id} is missing intro, kicker, or homeLines`);
+  }
+  for (const tile of journey.tiles) {
+    if (!tile.caption) {
+      throw new Error(`Tile ${journey.id}/${tile.id} is missing a caption`);
+    }
+  }
+}
+
+const senseBrand = splitProductTitle("LoFric® Sense™");
+if (senseBrand.brand !== "LoFric®" || senseBrand.rest !== "Sense™") {
+  throw new Error(`splitProductTitle failed: ${JSON.stringify(senseBrand)}`);
+}
+
+const hubPage = resolvePage(["rik-kvinnor", "sense"]);
+if (!hubPage || hubPage.type !== "hub") {
+  throw new Error("Expected Sense hub page");
+}
+if (parentHref(hubPage) !== "/rik-kvinnor/") {
+  throw new Error(`Sense hub parent should be category, got ${parentHref(hubPage)}`);
+}
+
+const categoryPage = resolvePage(["rik-kvinnor"]);
+if (!categoryPage || categoryPage.type !== "category") {
+  throw new Error("Expected women category page");
+}
+if (parentHref(categoryPage) !== "/") {
+  throw new Error("Category back should go home");
+}
+
+if (parseLocale("fi") !== "fi" || parseLocale("xx") !== "sv") {
+  throw new Error("parseLocale should accept Nordic locales and fall back to sv");
+}
+
+const fi = getStrings("fi");
+const en = getStrings("en");
+if (fi.nav.home === getStrings("sv").nav.home) {
+  throw new Error("Finnish chrome should not equal Swedish chrome");
+}
+if (en.nav.back !== "Back" || fi.nav.back !== "Takaisin") {
+  throw new Error("Expected translated Back labels");
+}
+if (fi.disclaimer.body !== getStrings("sv").disclaimer.body) {
+  throw new Error("Clinical disclaimer body must fall back to Swedish");
+}
+if (en.journeys["rik-kvinnor"].homeLines[1] !== "for women") {
+  throw new Error("English home journey lines should be translated");
 }

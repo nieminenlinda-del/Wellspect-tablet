@@ -57,6 +57,8 @@ export type ProductHub = {
   id: string;
   title: string;
   kicker: string;
+  subtitle?: string;
+  summary?: string;
   productVisual: IllustrationId;
   actions: HubAction[];
   ecoLabel?: boolean;
@@ -104,7 +106,10 @@ export type Article = {
 export type Journey = {
   id: JourneyId;
   homeLabel: string;
+  homeLines: [string, string];
   title: string;
+  kicker: string;
+  intro: string;
   tiles: CategoryTile[];
 };
 

@@ -1,8 +1,11 @@
 /**
- * Swedish UI strings, grouped for a later i18n pass (e.g. sv/fi/en).
- * Clinical copy lives with journey content, not here.
+ * Complete Swedish UI strings — the source of truth and fallback locale.
+ * Clinical/product copy lives in journey modules (female/male/navina) and stays Swedish
+ * until an official translation is supplied. Do not invent medical claims here.
  */
-export const locale = "sv" as const;
+import type { Locale } from "@/lib/locale";
+
+export const locale: Locale = "sv";
 
 export const strings = {
   locale,
@@ -16,24 +19,83 @@ export const strings = {
     title: "BLÅS- OCH TARMSKÖTSEL",
     subtitle: "Välj det område du vill lära dig mer om.",
     skip: "Hoppa till innehåll",
+    readMore: "Läs mer",
+  },
+  market: {
+    groupLabel: "Land och språk",
+    groupAria: "Välj land eller språk",
+    sweden: "Sverige",
+    finland: "Suomi",
+    finlandAria: "Suomi, Finland",
+    norway: "Norge",
+    denmark: "Danmark",
+    english: "English",
+    englishAria: "English, language only",
+  },
+  category: {
+    title: "INNEHÅLL",
+  },
+  content: {
+    fallbackNote:
+      "Produkttexter och kliniska avsnitt visas på svenska tills en officiell översättning finns.",
+  },
+  journeys: {
+    "rik-kvinnor": {
+      homeLabel: "RIK- för kvinnor",
+      homeLines: ["RIK-", "för kvinnor"] as [string, string],
+      kicker: "RIK – FÖR KVINNOR",
+    },
+    "rik-man": {
+      homeLabel: "RIK- för män",
+      homeLines: ["RIK-", "för män"] as [string, string],
+      kicker: "RIK – FÖR MÄN",
+    },
+    navina: {
+      homeLabel: "Navina Tarmskötsel",
+      homeLines: ["Navina", "Tarmskötsel"] as [string, string],
+      kicker: "NAVINA TARMSKÖTSEL",
+    },
+  },
+  notFound: {
+    title: "Sidan finns inte",
+    body: "Gå tillbaka till startsidan och välj en av de tre resorna.",
   },
   nav: {
-    home: "Huvudmeny",
-    info: "Instruktioner",
-    category: "Kategorimeny",
-    backSubmenu: "Tillbaka till undermeny",
+    home: "Hem",
+    homeAria: "Gå till huvudmenyn",
+    info: "Info",
+    infoAria: "Information om appen",
+    category: "Innehåll",
+    categoryAria: "Till innehållsmenyn",
+    back: "Tillbaka",
+    backAria: "Gå tillbaka",
+    backToJourney: (name: string) => `Tillbaka till ${name}`,
     next: "Följande sida",
     previous: "Föregående sida",
     pageOf: (current: number, total: number) => `Sida ${current}/${total}`,
     multiPage: "Ämnet omfattar flera sidor",
     contentMap: "Innehållskarta",
+    appNav: "Appnavigering",
+  },
+  sections: {
+    products: "Produkter",
+    support: "Stöd och information",
+    safety: "Viktigt om säkerhet",
   },
   info: {
-    title: "Instruktioner",
+    title: "Information",
     kicker: "Så använder du appen",
     intro:
-      "Den här appen ersätter klinikkioskens bildspel. Navigera med de stora knapparna. Ikonerna betyder samma sak som på den tidigare läsplattan.",
-    iconsHeading: "Ikoner",
+      "Här finns produktinformation, instruktionsfilmer och guider för RIK (ren intermittent kateterisering) och tarmskötsel. Innehållet är ett utbildningsstöd för dig som fått produkten förskrivet.",
+    structureHeading: "Så är innehållet uppbyggt",
+    structureIntro:
+      "Appen är indelad i tre områden. I varje område finns produkter, filmer och stöd — alltid tillsammans med den bruksanvisning och den teknik du fått av din vårdkontakt.",
+    structureItems: [
+      "RIK för kvinnor — katetrar och stöd för ren intermittent kateterisering.",
+      "RIK för män — katetrar, anatomi och instruktionsfilmer.",
+      "Navina tarmskötsel — system för transanal irrigation efter förskrivning.",
+    ],
+    iconsHeading: "Ikoner i menyn",
     hardwareNote:
       "På den fysiska läsplattan stängs enheten av med hårdvaruknappen och volymen justeras på sidan. I webbappen styrs ljudet av enheten eller webbläsaren.",
     kioskHeading: "Kioskläge",
@@ -46,8 +108,9 @@ export const strings = {
   },
   disclaimer: {
     short:
-      "Stöd för förskriven användning. Ersätter inte råd från din vårdkontakt.",
+      "Innehållet är ett utbildningsstöd. Ersätter inte råd från din vårdkontakt.",
     title: "Viktigt att veta",
+    notAdvice: "Ersätter inte vårdens råd",
     body:
       "LoFric®-katetrar och Navina™-produkter ska endast användas efter förskrivning och utbildning av hälso- och sjukvårdspersonal. Följ alltid den bruksanvisning som följer med produkten och de råd du fått av din förskrivare. Appen är ett utbildningsstöd och ersätter inte professionell medicinsk rådgivning, undersökning eller behandling. Kontakta din vårdkontakt om du är osäker eller om något inte känns rätt.",
   },
@@ -111,7 +174,8 @@ export const strings = {
     open: "Öppna",
     close: "Stäng",
     play: "Spela upp",
+    instructions: "Användarinstruktioner",
   },
-} as const;
+};
 
-export type Strings = typeof strings;
+export type Strings = Omit<typeof strings, "locale"> & { locale: Locale };

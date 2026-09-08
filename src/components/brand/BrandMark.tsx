@@ -1,4 +1,7 @@
-import { strings } from "@/content/strings";
+"use client";
+
+import { splitProductTitle } from "@/lib/chrome";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 
 type Props = {
   variant?: "light" | "blue";
@@ -6,13 +9,14 @@ type Props = {
 };
 
 export function WellspectMark({ variant = "blue", className = "" }: Props) {
+  const strings = useStrings();
   const color = variant === "light" ? "text-white" : "text-ws-blue";
   return (
-    <div className={`text-right leading-none ${color} ${className}`}>
-      <div className="font-display text-[1.35rem] font-semibold tracking-tight sm:text-[1.55rem]">
+    <div className={`brand-mark text-right leading-none ${color} ${className}`}>
+      <div className="font-display text-[1.2rem] font-semibold uppercase tracking-[0.08em] sm:text-[1.45rem]">
         {strings.brand.name}
       </div>
-      <div className="mt-1 text-[0.62rem] font-semibold tracking-[0.18em] opacity-90">
+      <div className="mt-1 text-[0.58rem] font-medium uppercase tracking-[0.22em] opacity-85">
         {strings.brand.tagline}
       </div>
     </div>
@@ -33,6 +37,22 @@ export function ProductWordmark({
       }`}
     >
       {name}
+    </span>
+  );
+}
+
+export function ProductName({
+  title,
+  className = "",
+}: {
+  title: string;
+  className?: string;
+}) {
+  const { brand, rest } = splitProductTitle(title);
+  return (
+    <span className={`product-name ${className}`}>
+      <span className="product-name-brand">{brand}</span>
+      {rest ? <span className="product-name-rest"> {rest}</span> : null}
     </span>
   );
 }

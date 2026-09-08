@@ -1,43 +1,79 @@
+"use client";
+
 import Link from "next/link";
+import { ProductName } from "@/components/brand/BrandMark";
+import { PageHeading } from "@/components/chrome/PageHeading";
+import {
+  InfoGlyph,
+  MultiPageGlyph,
+  PlayGlyph,
+} from "@/components/chrome/NavIcons";
+import { Disclaimer } from "@/components/chrome/Disclaimer";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
 import { Illustration } from "@/components/illustrations/Illustrations";
-import { strings } from "@/content/strings";
-import type { ProductHub } from "@/content/types";
+import { useStrings } from "@/components/i18n/LocaleProvider";
+import type { HubAction, ProductHub } from "@/content/types";
 
 export function ProductHubView({ hub }: { hub: ProductHub }) {
+  const strings = useStrings();
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_16rem]">
-      <div>
-        <p className="font-display text-sm font-bold tracking-wide text-ws-blue">
-          {hub.kicker}
-        </p>
-        <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <div className="content-page">
+      <PageHeading title={hub.title} />
+      {hub.subtitle ? <p className="product-subtitle">{hub.subtitle}</p> : null}
+      <FallbackNote />
+
+      <div className="product-hero">
+        <div>
+          {hub.summary ? <p className="content-lede">{hub.summary}</p> : null}
+          {hub.ecoLabel ? (
+            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-ws-swan">
+              {strings.ecolabel.title}
+            </p>
+          ) : null}
+        </div>
+        <div className="product-packshot">
+          <Illustration id={hub.productVisual} title={hub.title} />
+        </div>
+      </div>
+
+      <section className="mt-8">
+        <h2 className="section-heading">{strings.actions.instructions}</h2>
+        <ul className="action-grid">
           {hub.actions.map((action) => (
-            <li key={action.id} className={action.wide ? "sm:col-span-2" : ""}>
-              <Link
-                href={action.href}
-                className="tile-notch flex min-h-24 items-center justify-between gap-3 border-2 border-ws-blue px-4 py-4 text-left transition hover:bg-ws-blue-soft/70 sm:min-h-[6.5rem]"
-              >
-                <span className="font-display text-lg font-semibold text-ws-blue-deep">
-                  {action.title}
-                </span>
-                <span className="shrink-0 text-ws-blue" aria-hidden>
-                  {action.icon === "video" ? "▶" : action.icon === "guide" ? "☰" : "i"}
-                </span>
-              </Link>
+            <li key={action.id} className={action.wide ? "col-span-full" : ""}>
+              <ActionCard action={action} />
             </li>
           ))}
         </ul>
+      </section>
+
+      <div className="mt-8">
+        <Disclaimer title={strings.sections.safety} />
       </div>
-      <aside className="flex flex-col items-center justify-between gap-4">
-        <div className="h-44 w-full max-w-[13rem] lg:h-52 lg:max-w-[16rem]">
-          <Illustration id={hub.productVisual} title={hub.title} />
-        </div>
-        {hub.ecoLabel ? (
-          <p className="text-center text-xs font-semibold uppercase tracking-wide text-ws-swan">
-            {strings.ecolabel.title}
-          </p>
-        ) : null}
-      </aside>
     </div>
+  );
+}
+
+function ActionCard({ action }: { action: HubAction }) {
+  const branded = /^(LoFric|Navina)/i.test(action.title);
+  return (
+    <Link href={action.href} className="category-card category-card--action">
+      <div className="flex items-start justify-between gap-3">
+        {branded ? (
+          <ProductName title={action.title} />
+        ) : (
+          <span className="product-name font-semibold">{action.title}</span>
+        )}
+        <span className="category-card-icon text-ws-blue">
+          {action.icon === "video" ? (
+            <PlayGlyph className="h-6 w-6" />
+          ) : action.icon === "guide" ? (
+            <MultiPageGlyph className="h-6 w-6" />
+          ) : (
+            <InfoGlyph className="h-6 w-6" />
+          )}
+        </span>
+      </div>
+    </Link>
   );
 }

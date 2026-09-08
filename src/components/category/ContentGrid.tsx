@@ -1,57 +1,89 @@
+"use client";
+
 import Link from "next/link";
+import { ProductName } from "@/components/brand/BrandMark";
+import { PageHeading, SectionHeading } from "@/components/chrome/PageHeading";
+import {
+  DropletGlyph,
+  MultiPageGlyph,
+  PersonGlyph,
+  PlayGlyph,
+} from "@/components/chrome/NavIcons";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
 import { Illustration } from "@/components/illustrations/Illustrations";
-import { strings } from "@/content/strings";
-import type { Journey } from "@/content/types";
+import { isProductPackshot } from "@/content/productPackshots";
+import { useStrings } from "@/components/i18n/LocaleProvider";
+import type { CategoryTile, Journey, TileKind } from "@/content/types";
 
 export function ContentGrid({ journey }: { journey: Journey }) {
+  const strings = useStrings();
+  const products = journey.tiles.filter((tile) => tile.kind === "hub");
+  const support = journey.tiles.filter((tile) => tile.kind !== "hub");
+  const kicker = strings.journeys[journey.id].kicker;
+
   return (
-    <div className="relative">
-      <div className="pointer-events-none absolute right-0 top-24 hidden h-[28rem] w-24 opacity-40 lg:block">
-        <BubbleColumn />
-      </div>
-      <ul className="category-grid">
-        {journey.tiles.map((tile) => (
-          <li key={tile.id}>
-            <Link
-              href={tile.href}
-              className="tile-notch category-tile flex flex-col justify-between border-2 border-ws-blue bg-white p-3 transition hover:bg-ws-blue-soft/60 sm:p-4"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <h2 className="font-display text-xl font-semibold text-ws-blue-deep">
-                  {tile.title}
-                </h2>
-                {tile.kind === "video" ? (
-                  <span className="rounded-full bg-ws-blue-soft px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-ws-blue">
-                    Film
-                  </span>
-                ) : null}
-              </div>
-              <div className="mx-auto h-20 w-32 sm:h-24 sm:w-36 lg:h-28 lg:w-40">
-                <Illustration id={tile.illustration} title={tile.title} />
-              </div>
-              {tile.caption ? (
-                <p className="text-sm text-ws-muted">{tile.caption}</p>
-              ) : (
-                <p className="text-sm text-ws-blue">{strings.actions.open}</p>
-              )}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="content-page">
+      <PageHeading title={strings.category.title} />
+      <p className="content-lede">{journey.intro}</p>
+      <FallbackNote />
+      <p className="content-kicker">{kicker}</p>
+
+      <section className="mt-7">
+        <SectionHeading>{strings.sections.products}</SectionHeading>
+        <ul className="category-grid">
+          {products.map((tile) => (
+            <li key={tile.id}>
+              <CategoryCard tile={tile} />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {support.length > 0 ? (
+        <section className="mt-9">
+          <SectionHeading>{strings.sections.support}</SectionHeading>
+          <ul className="category-grid">
+            {support.map((tile) => (
+              <li key={tile.id}>
+                <CategoryCard tile={tile} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </div>
   );
 }
 
-function BubbleColumn() {
+function CategoryCard({ tile }: { tile: CategoryTile }) {
+  const strings = useStrings();
+  const showPackshot = isProductPackshot(tile.illustration);
+
   return (
-    <svg viewBox="0 0 80 420" className="h-full w-full" aria-hidden>
-      <circle cx="50" cy="28" r="16" fill="#9ec3dd" />
-      <circle cx="30" cy="78" r="22" fill="#c5dcef" />
-      <circle cx="54" cy="140" r="18" fill="#7eb6d9" opacity="0.7" />
-      <circle cx="28" cy="200" r="14" fill="#b9d6ea" />
-      <circle cx="52" cy="250" r="24" fill="#8ebfdb" opacity="0.55" />
-      <circle cx="34" cy="320" r="16" fill="#cfe3f2" />
-      <circle cx="56" cy="380" r="20" fill="#7aaecb" opacity="0.5" />
-    </svg>
+    <Link href={tile.href} className="category-card">
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="min-w-0">
+          <ProductName title={tile.title} />
+        </h3>
+        <span className="category-card-icon text-ws-blue">
+          <TileGlyph kind={tile.kind} />
+        </span>
+      </div>
+      <div className={`category-card-visual ${showPackshot ? "category-card-visual--pack" : ""}`}>
+        <Illustration id={tile.illustration} title={tile.title} />
+      </div>
+      {tile.caption ? (
+        <p className="category-card-caption">{tile.caption}</p>
+      ) : (
+        <p className="category-card-caption text-ws-blue">{strings.actions.open}</p>
+      )}
+    </Link>
   );
+}
+
+function TileGlyph({ kind }: { kind: TileKind }) {
+  if (kind === "hub") return <DropletGlyph className="h-6 w-6" />;
+  if (kind === "video") return <PlayGlyph className="h-6 w-6" />;
+  if (kind === "guides") return <MultiPageGlyph className="h-6 w-6" />;
+  return <PersonGlyph className="h-6 w-6" />;
 }
