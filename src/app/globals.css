@@ -90,6 +90,14 @@
   }
 }
 
+/* Tall landscape (Chrome 1920×1200 device mode) — taller tiles, less leftover gap */
+@media (orientation: landscape) and (min-height: 1100px) {
+  :root {
+    --tile-min-h: 16rem;
+    --hub-visual: 18rem;
+  }
+}
+
 @theme inline {
   --color-ws-blue: var(--ws-blue);
   --color-ws-blue-deep: var(--ws-blue-deep);
@@ -190,8 +198,8 @@ button {
   }
 }
 
-/* Three circles in a row once width can hold them (Tab landscape + 1200 portrait). */
-@media (min-width: 1100px) {
+/* Three circles in a row on landscape tablet / desktop (primary kiosk orientation). */
+@media (min-width: 1100px) and (orientation: landscape) {
   .journey-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
