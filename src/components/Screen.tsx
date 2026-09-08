@@ -22,7 +22,9 @@ export function Screen({ page }: { page: ContentPage }) {
       {page.type === "hub" ? <ProductHubView hub={page.hub} /> : null}
       {page.type === "guide" ? <GuideViewer guide={page.guide} /> : null}
       {page.type === "video" ? <VideoView video={page.video} /> : null}
-      {page.type === "article" ? <ArticleView article={page.article} /> : null}
+      {page.type === "article" ? (
+        <ArticleView article={page.article} journeyId={page.journeyId} />
+      ) : null}
     </AppChrome>
   );
 }

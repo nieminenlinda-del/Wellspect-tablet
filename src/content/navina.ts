@@ -11,7 +11,11 @@ import type { Article, Journey, ProductHub, VideoItem } from "./types";
 export const navinaJourney: Journey = {
   id: "navina",
   homeLabel: "Navina Tarmskötsel",
+  homeLines: ["Navina", "Tarmskötsel"],
   title: "INNEHÅLL",
+  kicker: "NAVINA TARMSKÖTSEL",
+  intro:
+    "Transanal irrigation (TAI) är en metod för tarmskötsel som förskrivs när din vårdkontakt bedömt att den passar dig. Volymer och inställningar är individuella och anges inte i appen.",
   tiles: [
     {
       id: "smart",
@@ -19,6 +23,7 @@ export const navinaJourney: Journey = {
       kind: "hub",
       href: "/navina/smart/",
       illustration: "navina-smart",
+      caption: "Elektroniskt system för transanal irrigation",
     },
     {
       id: "classic",
@@ -26,6 +31,7 @@ export const navinaJourney: Journey = {
       kind: "hub",
       href: "/navina/classic/",
       illustration: "navina-classic",
+      caption: "Manuellt system för transanal irrigation",
     },
     {
       id: "om-tarmskotsel",
@@ -33,6 +39,7 @@ export const navinaJourney: Journey = {
       kind: "article",
       href: "/navina/om-tarmskotsel/",
       illustration: "bowel",
+      caption: "Vad Navina är — utan doser eller volymer",
     },
     {
       id: "film",
@@ -40,6 +47,7 @@ export const navinaJourney: Journey = {
       kind: "video",
       href: "/navina/film/",
       illustration: "film",
+      caption: "Film om Navina tarmskötsel",
     },
     {
       id: "guider",
@@ -47,6 +55,7 @@ export const navinaJourney: Journey = {
       kind: "guides",
       href: "/navina/guider/",
       illustration: "guides",
+      caption: "Broschyrer och längre guidematerial",
     },
     {
       id: "kontakt",
@@ -54,6 +63,7 @@ export const navinaJourney: Journey = {
       kind: "contact",
       href: "/navina/kontakt/",
       illustration: "contact",
+      caption: "Kundservice i Sverige",
     },
   ],
 };
@@ -63,11 +73,15 @@ function navinaHub(
   title: string,
   visual: ProductHub["productVisual"],
   productName: string,
+  subtitle: string,
+  summary: string,
 ): ProductHub {
   return {
     id,
     title,
-    kicker: "ANVÄNDARINSTRUKTIONER:",
+    kicker: "Användarinstruktioner",
+    subtitle,
+    summary,
     productVisual: visual,
     actions: [
       {
@@ -94,8 +108,22 @@ function navinaHub(
 }
 
 export const navinaHubs: Record<string, ProductHub> = {
-  smart: navinaHub("smart", "SMART", "navina-smart", "Navina™ Smart"),
-  classic: navinaHub("classic", "CLASSIC", "navina-classic", "Navina™ Classic"),
+  smart: navinaHub(
+    "smart",
+    "Navina™ Smart",
+    "navina-smart",
+    "Navina™ Smart",
+    "Elektroniskt system för transanal irrigation",
+    "Navina Smart är ett elektroniskt system för transanal irrigation. Inställningar och användning styrs av den utbildning och det schema du fått.",
+  ),
+  classic: navinaHub(
+    "classic",
+    "Navina™ Classic",
+    "navina-classic",
+    "Navina™ Classic",
+    "Manuellt system för transanal irrigation",
+    "Navina Classic är ett manuellt system för transanal irrigation. Volym och teknik är individuella och ska inte ändras utifrån den här appen.",
+  ),
 };
 
 export const navinaVideos: Record<string, VideoItem> = {

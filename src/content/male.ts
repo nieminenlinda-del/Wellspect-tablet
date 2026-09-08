@@ -13,7 +13,11 @@ import type { Article, Guide, Journey, ProductHub, VideoItem } from "./types";
 export const maleJourney: Journey = {
   id: "rik-man",
   homeLabel: "RIK- för män",
+  homeLines: ["RIK-", "för män"],
   title: "INNEHÅLL",
+  kicker: "RIK – FÖR MÄN",
+  intro:
+    "Ren intermittent kateterisering (RIK) innebär att blåsan töms med en kateter enligt den rutin du lärt dig av din vårdkontakt. Här finns produkter och stöd för män.",
   tiles: [
     {
       id: "origo",
@@ -21,6 +25,7 @@ export const maleJourney: Journey = {
       kind: "hub",
       href: "/rik-man/origo/",
       illustration: "origo-pack",
+      caption: "Hydrofil kateter i fickformat",
     },
     {
       id: "primo",
@@ -28,6 +33,7 @@ export const maleJourney: Journey = {
       kind: "hub",
       href: "/rik-man/primo/",
       illustration: "primo-pack",
+      caption: "Hydrofil kateter med saltlösning i förpackningen",
     },
     {
       id: "classic",
@@ -35,7 +41,7 @@ export const maleJourney: Journey = {
       kind: "hub",
       href: "/rik-man/classic/",
       illustration: "classic-cath",
-      caption: "Classic",
+      caption: "Den ursprungliga hydrofila tappningskatetern",
     },
     {
       id: "anatomi",
@@ -43,6 +49,7 @@ export const maleJourney: Journey = {
       kind: "article",
       href: "/rik-man/anatomi/",
       illustration: "anatomy-male",
+      caption: "Urinrörets väg genom prostatan till blåsan",
     },
     {
       id: "rik-film",
@@ -50,13 +57,15 @@ export const maleJourney: Journey = {
       kind: "video",
       href: "/rik-man/rik-film/",
       illustration: "film",
+      caption: "Film som visar kateterisering steg för steg",
     },
     {
       id: "video-arabiska",
-      title: "Video på Arabiska",
+      title: "Video på arabiska",
       kind: "video",
       href: "/rik-man/video-arabiska/",
       illustration: "arabic-video",
+      caption: "RIK förklarat på arabiska",
     },
     {
       id: "svanen",
@@ -64,6 +73,7 @@ export const maleJourney: Journey = {
       kind: "ecolabel",
       href: "/rik-man/svanen/",
       illustration: "swan",
+      caption: "Vad märkningen betyder på förpackningen",
     },
     {
       id: "guider",
@@ -71,6 +81,7 @@ export const maleJourney: Journey = {
       kind: "guides",
       href: "/rik-man/guider/",
       illustration: "guides",
+      caption: "Broschyrer och längre guidematerial",
     },
     {
       id: "kontakt",
@@ -78,14 +89,18 @@ export const maleJourney: Journey = {
       kind: "contact",
       href: "/rik-man/kontakt/",
       illustration: "contact",
+      caption: "Kundservice i Sverige",
     },
   ],
 };
 
 export const origoHub: ProductHub = {
   id: "origo",
-  title: "ORIGO",
-  kicker: "ANVÄNDARINSTRUKTIONER:",
+  title: "LoFric® Origo™",
+  kicker: "Användarinstruktioner",
+  subtitle: "Hydrofil kateter i fickformat",
+  summary:
+    "LoFric Origo är en hydrofil engångskateter med saltlösning för aktivering. Den är utvecklad för män, vikbar till fickformat och avsedd för intermittent kateterisering efter förskrivning.",
   productVisual: "origo-pack",
   ecoLabel: true,
   actions: [
@@ -137,8 +152,11 @@ export const origoHub: ProductHub = {
 
 export const primoHub: ProductHub = {
   id: "primo",
-  title: "PRIMO",
-  kicker: "ANVÄNDARINSTRUKTIONER:",
+  title: "LoFric® Primo™",
+  kicker: "Användarinstruktioner",
+  subtitle: "Hydrofil kateter med saltlösning i förpackningen",
+  summary:
+    "LoFric Primo är en hydrofil kateter med steril saltlösning i förpackningen. Ett tryck aktiverar ytan. Produkten är vikbar och avsedd för förskrivna användare.",
   productVisual: "primo-pack",
   actions: [
     {
@@ -165,8 +183,11 @@ export const primoHub: ProductHub = {
 
 export const classicHub: ProductHub = {
   id: "classic",
-  title: "LOFRIC",
-  kicker: "ANVÄNDARINSTRUKTIONER:",
+  title: "LoFric®",
+  kicker: "Användarinstruktioner",
+  subtitle: "Den ursprungliga hydrofila tappningskatetern",
+  summary:
+    "LoFric är den ursprungliga hydrofila tappningskatetern från Wellspect. Classic-varianten aktiveras med vatten enligt bruksanvisningen i förpackningen — inte med en inbyggd saltlösningsbehållare som Origo.",
   productVisual: "classic-cath",
   actions: [
     {

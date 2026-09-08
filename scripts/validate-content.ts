@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { allRoutes, contentMapEntries, resolvePage } from "../src/content/catalog";
+import { allRoutes, contentMapEntries, journeyList, resolvePage } from "../src/content/catalog";
+import { parentHref, splitProductTitle } from "../src/lib/chrome";
 import { PRODUCT_PACKSHOTS } from "../src/content/productPackshots";
 
 const routes = allRoutes();
@@ -49,4 +50,36 @@ for (const [id, publicPath] of Object.entries(PRODUCT_PACKSHOTS)) {
 console.log(`Validated ${routes.length} routes and ${Object.keys(PRODUCT_PACKSHOTS).length} product packshots`);
 for (const entry of map.slice(0, 8)) {
   console.log(`- ${entry.path}  ${entry.label}`);
+}
+
+for (const journey of journeyList) {
+  if (!journey.intro || !journey.kicker || journey.homeLines.length !== 2) {
+    throw new Error(`Journey ${journey.id} is missing intro, kicker, or homeLines`);
+  }
+  for (const tile of journey.tiles) {
+    if (!tile.caption) {
+      throw new Error(`Tile ${journey.id}/${tile.id} is missing a caption`);
+    }
+  }
+}
+
+const senseBrand = splitProductTitle("LoFric® Sense™");
+if (senseBrand.brand !== "LoFric®" || senseBrand.rest !== "Sense™") {
+  throw new Error(`splitProductTitle failed: ${JSON.stringify(senseBrand)}`);
+}
+
+const hubPage = resolvePage(["rik-kvinnor", "sense"]);
+if (!hubPage || hubPage.type !== "hub") {
+  throw new Error("Expected Sense hub page");
+}
+if (parentHref(hubPage) !== "/rik-kvinnor/") {
+  throw new Error(`Sense hub parent should be category, got ${parentHref(hubPage)}`);
+}
+
+const categoryPage = resolvePage(["rik-kvinnor"]);
+if (!categoryPage || categoryPage.type !== "category") {
+  throw new Error("Expected women category page");
+}
+if (parentHref(categoryPage) !== "/") {
+  throw new Error("Category back should go home");
 }

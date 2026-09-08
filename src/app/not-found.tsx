@@ -11,7 +11,7 @@ export default function NotFound() {
         href="/"
         className="tap-target mt-6 inline-flex items-center justify-center rounded-full bg-ws-blue px-6 font-semibold text-white"
       >
-        Huvudmeny
+        Hem
       </Link>
     </main>
   );

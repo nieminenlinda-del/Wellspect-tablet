@@ -9,6 +9,7 @@ import {
   MenuGlyph,
   MultiPageGlyph,
 } from "@/components/chrome/NavIcons";
+import { PageHeading } from "@/components/chrome/PageHeading";
 import { Disclaimer } from "@/components/chrome/Disclaimer";
 import { strings } from "@/content/strings";
 import {
@@ -19,21 +20,13 @@ import {
 } from "@/lib/kiosk";
 
 const icons = [
-  { label: "Huvudmeny knapp", node: <HomeGlyph className="h-9 w-9" /> },
-  { label: "Kategorimeny knapp", node: <MenuGlyph className="h-9 w-9" /> },
-  { label: "Tillbaka till undermeny knapp", node: <BackGlyph className="h-9 w-9" /> },
+  { label: `${strings.nav.home} — ${strings.nav.homeAria}`, node: <HomeGlyph className="h-9 w-9" /> },
+  { label: `${strings.nav.back} — ${strings.nav.backAria}`, node: <BackGlyph className="h-9 w-9" /> },
+  { label: `${strings.nav.info} — ${strings.nav.infoAria}`, node: <InfoGlyph className="h-9 w-9" /> },
+  { label: `${strings.nav.category} — ${strings.nav.categoryAria}`, node: <MenuGlyph className="h-9 w-9" /> },
   { label: "Följande sida knapp", node: <ChevronGlyph direction="right" className="h-9 w-9" /> },
   { label: "Föregående sida knapp", node: <ChevronGlyph direction="left" className="h-9 w-9" /> },
-  { label: "Instruktioner knapp", node: <InfoGlyph className="h-9 w-9" /> },
   { label: "Ämnet omfattar flera sidor", node: <MultiPageGlyph className="h-8 w-8" /> },
-  {
-    label: "Sidnummer",
-    node: (
-      <span className="rounded border border-dashed border-current px-2 py-1 text-sm font-semibold">
-        Sida 1/2
-      </span>
-    ),
-  },
 ];
 
 export function InfoPage() {
@@ -55,18 +48,28 @@ export function InfoPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
-      <p className="text-base leading-relaxed text-ws-ink sm:text-lg">{strings.info.intro}</p>
+    <div className="content-page mx-auto max-w-3xl">
+      <PageHeading title={strings.info.title} />
+      <p className="content-lede">{strings.info.intro}</p>
 
-      <section>
-        <h2 className="font-display text-2xl text-ws-blue">{strings.info.iconsHeading}</h2>
+      <section className="mt-7">
+        <h2 className="section-heading">{strings.info.structureHeading}</h2>
+        <p className="mt-3 text-base leading-relaxed text-ws-ink sm:text-lg">
+          {strings.info.structureIntro}
+        </p>
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-base text-ws-ink sm:text-lg">
+          {strings.info.structureItems.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="section-heading">{strings.info.iconsHeading}</h2>
         <ul className="mt-4 space-y-3">
           {icons.map((icon) => (
-            <li
-              key={icon.label}
-              className="flex items-center gap-4 rounded-2xl border border-ws-line px-3 py-3"
-            >
-              <span className="flex min-h-12 min-w-12 items-center justify-center text-ws-blue">
+            <li key={icon.label} className="flex items-center gap-4 rounded-2xl border border-ws-line px-3 py-3">
+              <span className="chrome-icon-disc text-ws-blue">
                 {icon.node}
               </span>
               <span className="text-base text-ws-ink">{icon.label}</span>
@@ -75,8 +78,8 @@ export function InfoPage() {
         </ul>
       </section>
 
-      <section className="rounded-2xl border border-ws-line p-4">
-        <h2 className="font-display text-2xl text-ws-blue">{strings.info.kioskHeading}</h2>
+      <section className="mt-8 rounded-2xl border border-ws-line p-5">
+        <h2 className="section-heading">{strings.info.kioskHeading}</h2>
         <p className="mt-2 text-ws-muted">{strings.info.kioskBody}</p>
         <p className="mt-2 text-sm font-semibold text-ws-blue-deep">
           {kiosk ? strings.info.kioskOn : strings.info.kioskOff}
@@ -90,8 +93,10 @@ export function InfoPage() {
         </button>
       </section>
 
-      <p className="text-sm text-ws-muted">{strings.info.hardwareNote}</p>
-      <Disclaimer />
+      <p className="mt-6 text-sm text-ws-muted">{strings.info.hardwareNote}</p>
+      <div className="mt-6">
+        <Disclaimer title={strings.disclaimer.notAdvice} />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 /* Wellspect companion shell cache. Keep CACHE_NAME in sync when assets change. */
-const CACHE_NAME = "wellspect-shell-v3";
+const CACHE_NAME = "wellspect-shell-v4";
 
 function withBase(path) {
   const scopePath = new URL(self.registration.scope).pathname.replace(/\/$/, "");

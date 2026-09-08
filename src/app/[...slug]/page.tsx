@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!page) return { title: "Wellspect" };
   switch (page.type) {
     case "info":
-      return { title: "Instruktioner" };
+      return { title: "Information" };
     case "map":
       return { title: "Innehållskarta" };
     case "category":
