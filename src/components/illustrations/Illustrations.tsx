@@ -12,6 +12,7 @@ type Props = {
 export function Illustration({ id, className = "h-full w-full", title }: Props) {
   if (isProductPackshot(id)) {
     return (
+      // eslint-disable-next-line @next/next/no-img-element -- static PNG via withBase(); next/image would double-prefix assetPrefix
       <img
         src={withBase(PRODUCT_PACKSHOTS[id])}
         alt={title ?? ""}
