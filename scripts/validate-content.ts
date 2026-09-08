@@ -2,6 +2,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { allRoutes, contentMapEntries, journeyList, resolvePage } from "../src/content/catalog";
 import { parentHref, splitProductTitle } from "../src/lib/chrome";
+import { getStrings } from "../src/content/i18n";
+import { parseLocale } from "../src/lib/locale";
 import { PRODUCT_PACKSHOTS } from "../src/content/productPackshots";
 
 const routes = allRoutes();
@@ -82,4 +84,23 @@ if (!categoryPage || categoryPage.type !== "category") {
 }
 if (parentHref(categoryPage) !== "/") {
   throw new Error("Category back should go home");
+}
+
+if (parseLocale("fi") !== "fi" || parseLocale("xx") !== "sv") {
+  throw new Error("parseLocale should accept Nordic locales and fall back to sv");
+}
+
+const fi = getStrings("fi");
+const en = getStrings("en");
+if (fi.nav.home === getStrings("sv").nav.home) {
+  throw new Error("Finnish chrome should not equal Swedish chrome");
+}
+if (en.nav.back !== "Back" || fi.nav.back !== "Takaisin") {
+  throw new Error("Expected translated Back labels");
+}
+if (fi.disclaimer.body !== getStrings("sv").disclaimer.body) {
+  throw new Error("Clinical disclaimer body must fall back to Swedish");
+}
+if (en.journeys["rik-kvinnor"].homeLines[1] !== "for women") {
+  throw new Error("English home journey lines should be translated");
 }

@@ -1,8 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { PageHeading } from "@/components/chrome/PageHeading";
 import { Disclaimer } from "@/components/chrome/Disclaimer";
-import { journeys } from "@/content/catalog";
-import { strings } from "@/content/strings";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import type { Article, JourneyId } from "@/content/types";
 
 export function ArticleView({
@@ -12,12 +14,14 @@ export function ArticleView({
   article: Article;
   journeyId?: JourneyId;
 }) {
-  const journey = journeyId ? journeys[journeyId] : undefined;
+  const strings = useStrings();
+  const journeyCopy = journeyId ? strings.journeys[journeyId] : undefined;
 
   return (
     <article className="content-page mx-auto max-w-3xl">
       {article.kicker ? <p className="content-kicker mb-2">{article.kicker}</p> : null}
       <PageHeading title={article.title} />
+      <FallbackNote />
       {article.paragraphs.map((paragraph) => (
         <p key={paragraph} className="content-lede mt-4">
           {paragraph}
@@ -32,9 +36,9 @@ export function ArticleView({
       ) : null}
       {article.note ? <p className="mt-4 text-sm text-ws-muted">{article.note}</p> : null}
 
-      {journey ? (
-        <Link href={`/${journey.id}/`} className="back-pill">
-          {strings.nav.backToJourney(journey.homeLabel)}
+      {journeyCopy && journeyId ? (
+        <Link href={`/${journeyId}/`} className="back-pill">
+          {strings.nav.backToJourney(journeyCopy.homeLabel)}
         </Link>
       ) : null}
 

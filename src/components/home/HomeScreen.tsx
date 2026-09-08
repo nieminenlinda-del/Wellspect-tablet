@@ -1,19 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import { ProductWordmark, WellspectMark } from "@/components/brand/BrandMark";
 import { ChromeIconLink } from "@/components/chrome/ChromeIconLink";
+import { MarketSelector } from "@/components/home/MarketSelector";
 import { NordicBackdrop } from "@/components/home/NordicBackdrop";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import { journeyList } from "@/content/catalog";
-import { strings } from "@/content/strings";
 
 export function HomeScreen() {
+  const strings = useStrings();
   const [women, men, bowel] = journeyList;
+  const womenCopy = strings.journeys["rik-kvinnor"];
+  const menCopy = strings.journeys["rik-man"];
+  const bowelCopy = strings.journeys.navina;
 
   return (
     <div className="relative min-h-dvh overflow-x-hidden overflow-y-auto text-white">
       <NordicBackdrop />
 
       <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[var(--app-max)] flex-col px-[var(--content-pad-x)] pb-[calc(var(--safe-bottom)+1.1rem)] pt-[calc(var(--safe-top)+0.7rem)]">
-        <header className="flex items-start justify-between gap-4">
+        <header className="home-header">
           <ChromeIconLink
             href="/info/"
             icon="info"
@@ -21,6 +28,7 @@ export function HomeScreen() {
             ariaLabel={strings.nav.infoAria}
             tone="light"
           />
+          <MarketSelector tone="light" />
           <WellspectMark variant="light" />
         </header>
 
@@ -49,18 +57,18 @@ export function HomeScreen() {
           <div className="journey-grid mt-8 sm:mt-10">
             <JourneyCircle
               href={`/${women.id}/`}
-              lines={women.homeLines}
-              label={women.homeLabel}
+              lines={womenCopy.homeLines}
+              label={womenCopy.homeLabel}
             />
             <JourneyCircle
               href={`/${men.id}/`}
-              lines={men.homeLines}
-              label={men.homeLabel}
+              lines={menCopy.homeLines}
+              label={menCopy.homeLabel}
             />
             <JourneyCircle
               href={`/${bowel.id}/`}
-              lines={bowel.homeLines}
-              label={bowel.homeLabel}
+              lines={bowelCopy.homeLines}
+              label={bowelCopy.homeLabel}
             />
           </div>
         </main>

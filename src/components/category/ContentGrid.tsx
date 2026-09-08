@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ProductName } from "@/components/brand/BrandMark";
 import { PageHeading, SectionHeading } from "@/components/chrome/PageHeading";
@@ -7,20 +9,24 @@ import {
   PersonGlyph,
   PlayGlyph,
 } from "@/components/chrome/NavIcons";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
 import { Illustration } from "@/components/illustrations/Illustrations";
 import { isProductPackshot } from "@/content/productPackshots";
-import { strings } from "@/content/strings";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import type { CategoryTile, Journey, TileKind } from "@/content/types";
 
 export function ContentGrid({ journey }: { journey: Journey }) {
+  const strings = useStrings();
   const products = journey.tiles.filter((tile) => tile.kind === "hub");
   const support = journey.tiles.filter((tile) => tile.kind !== "hub");
+  const kicker = strings.journeys[journey.id].kicker;
 
   return (
     <div className="content-page">
-      <PageHeading title={journey.title} />
+      <PageHeading title={strings.category.title} />
       <p className="content-lede">{journey.intro}</p>
-      <p className="content-kicker">{journey.kicker}</p>
+      <FallbackNote />
+      <p className="content-kicker">{kicker}</p>
 
       <section className="mt-7">
         <SectionHeading>{strings.sections.products}</SectionHeading>
@@ -50,6 +56,7 @@ export function ContentGrid({ journey }: { journey: Journey }) {
 }
 
 function CategoryCard({ tile }: { tile: CategoryTile }) {
+  const strings = useStrings();
   const showPackshot = isProductPackshot(tile.illustration);
 
   return (

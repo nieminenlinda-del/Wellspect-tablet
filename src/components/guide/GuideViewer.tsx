@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { PageHeading } from "@/components/chrome/PageHeading";
 import { ChevronGlyph, MultiPageGlyph } from "@/components/chrome/NavIcons";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
 import { Illustration } from "@/components/illustrations/Illustrations";
-import { strings } from "@/content/strings";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import type { Guide } from "@/content/types";
 
 export function GuideViewer({ guide }: { guide: Guide }) {
+  const strings = useStrings();
   const [index, setIndex] = useState(0);
   const total = guide.pages.length;
   const page = guide.pages[index];
@@ -27,6 +29,7 @@ export function GuideViewer({ guide }: { guide: Guide }) {
     <div className="content-page">
       <PageHeading title={guide.productName} />
       <p className="content-lede">{guide.intro}</p>
+      <FallbackNote />
       <h2 className="mt-5 font-display text-2xl font-light text-ws-blue-deep sm:text-3xl">
         {guide.title}
       </h2>

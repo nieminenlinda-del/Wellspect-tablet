@@ -1,4 +1,5 @@
 export { strings, locale } from "./strings";
+export { getStrings } from "./i18n";
 export {
   allRoutes,
   categoryHref,

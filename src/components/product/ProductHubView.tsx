@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ProductName } from "@/components/brand/BrandMark";
 import { PageHeading } from "@/components/chrome/PageHeading";
@@ -7,15 +9,18 @@ import {
   PlayGlyph,
 } from "@/components/chrome/NavIcons";
 import { Disclaimer } from "@/components/chrome/Disclaimer";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
 import { Illustration } from "@/components/illustrations/Illustrations";
-import { strings } from "@/content/strings";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import type { HubAction, ProductHub } from "@/content/types";
 
 export function ProductHubView({ hub }: { hub: ProductHub }) {
+  const strings = useStrings();
   return (
     <div className="content-page">
       <PageHeading title={hub.title} />
       {hub.subtitle ? <p className="product-subtitle">{hub.subtitle}</p> : null}
+      <FallbackNote />
 
       <div className="product-hero">
         <div>
@@ -32,7 +37,7 @@ export function ProductHubView({ hub }: { hub: ProductHub }) {
       </div>
 
       <section className="mt-8">
-        <h2 className="section-heading">{hub.kicker || strings.actions.instructions}</h2>
+        <h2 className="section-heading">{strings.actions.instructions}</h2>
         <ul className="action-grid">
           {hub.actions.map((action) => (
             <li key={action.id} className={action.wide ? "col-span-full" : ""}>

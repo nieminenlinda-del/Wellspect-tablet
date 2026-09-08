@@ -1,11 +1,16 @@
+"use client";
+
 import { PageHeading } from "@/components/chrome/PageHeading";
-import { strings } from "@/content/strings";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import type { VideoItem } from "@/content/types";
 
 export function VideoView({ video }: { video: VideoItem }) {
+  const strings = useStrings();
   return (
     <div className="content-page mx-auto w-full max-w-3xl lg:max-w-5xl">
       <PageHeading title={video.title} />
+      <FallbackNote />
       <div className="mt-5 overflow-hidden rounded-3xl border border-ws-line bg-ws-blue-deep text-white">
         {video.src ? (
           <video

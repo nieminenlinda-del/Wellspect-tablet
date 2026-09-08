@@ -1,4 +1,6 @@
-import { strings } from "@/content/strings";
+"use client";
+
+import { useStrings } from "@/components/i18n/LocaleProvider";
 
 type Props = {
   compact?: boolean;
@@ -7,6 +9,7 @@ type Props = {
 };
 
 export function Disclaimer({ compact = false, light = false, title }: Props) {
+  const strings = useStrings();
   const heading = title ?? strings.disclaimer.title;
   const tone = light ? "text-white/85" : "text-ws-muted";
   if (compact) {

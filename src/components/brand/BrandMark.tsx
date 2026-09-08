@@ -1,5 +1,7 @@
-import { strings } from "@/content/strings";
+"use client";
+
 import { splitProductTitle } from "@/lib/chrome";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 
 type Props = {
   variant?: "light" | "blue";
@@ -7,6 +9,7 @@ type Props = {
 };
 
 export function WellspectMark({ variant = "blue", className = "" }: Props) {
+  const strings = useStrings();
   const color = variant === "light" ? "text-white" : "text-ws-blue";
   return (
     <div className={`brand-mark text-right leading-none ${color} ${className}`}>

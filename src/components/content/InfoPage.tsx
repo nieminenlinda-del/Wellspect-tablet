@@ -11,7 +11,8 @@ import {
 } from "@/components/chrome/NavIcons";
 import { PageHeading } from "@/components/chrome/PageHeading";
 import { Disclaimer } from "@/components/chrome/Disclaimer";
-import { strings } from "@/content/strings";
+import { FallbackNote } from "@/components/i18n/LocaleBits";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import {
   exitKioskFullscreen,
   readKioskFlag,
@@ -19,17 +20,8 @@ import {
   writeKioskFlag,
 } from "@/lib/kiosk";
 
-const icons = [
-  { label: `${strings.nav.home} — ${strings.nav.homeAria}`, node: <HomeGlyph className="h-9 w-9" /> },
-  { label: `${strings.nav.back} — ${strings.nav.backAria}`, node: <BackGlyph className="h-9 w-9" /> },
-  { label: `${strings.nav.info} — ${strings.nav.infoAria}`, node: <InfoGlyph className="h-9 w-9" /> },
-  { label: `${strings.nav.category} — ${strings.nav.categoryAria}`, node: <MenuGlyph className="h-9 w-9" /> },
-  { label: "Följande sida knapp", node: <ChevronGlyph direction="right" className="h-9 w-9" /> },
-  { label: "Föregående sida knapp", node: <ChevronGlyph direction="left" className="h-9 w-9" /> },
-  { label: "Ämnet omfattar flera sidor", node: <MultiPageGlyph className="h-8 w-8" /> },
-];
-
 export function InfoPage() {
+  const strings = useStrings();
   const [kiosk, setKiosk] = useState(false);
 
   useEffect(() => {
@@ -47,10 +39,21 @@ export function InfoPage() {
     }
   };
 
+  const icons = [
+    { label: `${strings.nav.home} — ${strings.nav.homeAria}`, node: <HomeGlyph className="h-9 w-9" /> },
+    { label: `${strings.nav.back} — ${strings.nav.backAria}`, node: <BackGlyph className="h-9 w-9" /> },
+    { label: `${strings.nav.info} — ${strings.nav.infoAria}`, node: <InfoGlyph className="h-9 w-9" /> },
+    { label: `${strings.nav.category} — ${strings.nav.categoryAria}`, node: <MenuGlyph className="h-9 w-9" /> },
+    { label: strings.nav.next, node: <ChevronGlyph direction="right" className="h-9 w-9" /> },
+    { label: strings.nav.previous, node: <ChevronGlyph direction="left" className="h-9 w-9" /> },
+    { label: strings.nav.multiPage, node: <MultiPageGlyph className="h-8 w-8" /> },
+  ];
+
   return (
     <div className="content-page mx-auto max-w-3xl">
       <PageHeading title={strings.info.title} />
       <p className="content-lede">{strings.info.intro}</p>
+      <FallbackNote />
 
       <section className="mt-7">
         <h2 className="section-heading">{strings.info.structureHeading}</h2>

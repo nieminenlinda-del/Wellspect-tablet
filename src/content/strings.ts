@@ -1,8 +1,11 @@
 /**
- * Swedish UI strings, grouped for a later i18n pass (e.g. sv/fi/en).
- * Clinical copy lives with journey content, not here.
+ * Complete Swedish UI strings — the source of truth and fallback locale.
+ * Clinical/product copy lives in journey modules (female/male/navina) and stays Swedish
+ * until an official translation is supplied. Do not invent medical claims here.
  */
-export const locale = "sv" as const;
+import type { Locale } from "@/lib/locale";
+
+export const locale: Locale = "sv";
 
 export const strings = {
   locale,
@@ -17,6 +20,45 @@ export const strings = {
     subtitle: "Välj det område du vill lära dig mer om.",
     skip: "Hoppa till innehåll",
     readMore: "Läs mer",
+  },
+  market: {
+    groupLabel: "Land och språk",
+    groupAria: "Välj land eller språk",
+    sweden: "Sverige",
+    finland: "Suomi",
+    finlandAria: "Suomi, Finland",
+    norway: "Norge",
+    denmark: "Danmark",
+    english: "English",
+    englishAria: "English, language only",
+  },
+  category: {
+    title: "INNEHÅLL",
+  },
+  content: {
+    fallbackNote:
+      "Produkttexter och kliniska avsnitt visas på svenska tills en officiell översättning finns.",
+  },
+  journeys: {
+    "rik-kvinnor": {
+      homeLabel: "RIK- för kvinnor",
+      homeLines: ["RIK-", "för kvinnor"] as [string, string],
+      kicker: "RIK – FÖR KVINNOR",
+    },
+    "rik-man": {
+      homeLabel: "RIK- för män",
+      homeLines: ["RIK-", "för män"] as [string, string],
+      kicker: "RIK – FÖR MÄN",
+    },
+    navina: {
+      homeLabel: "Navina Tarmskötsel",
+      homeLines: ["Navina", "Tarmskötsel"] as [string, string],
+      kicker: "NAVINA TARMSKÖTSEL",
+    },
+  },
+  notFound: {
+    title: "Sidan finns inte",
+    body: "Gå tillbaka till startsidan och välj en av de tre resorna.",
   },
   nav: {
     home: "Hem",
@@ -134,6 +176,6 @@ export const strings = {
     play: "Spela upp",
     instructions: "Användarinstruktioner",
   },
-} as const;
+};
 
-export type Strings = typeof strings;
+export type Strings = Omit<typeof strings, "locale"> & { locale: Locale };

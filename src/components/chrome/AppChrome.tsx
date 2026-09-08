@@ -1,7 +1,9 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { WellspectMark } from "@/components/brand/BrandMark";
 import { ChromeIconLink, ChromeIconStack } from "@/components/chrome/ChromeIconLink";
-import { strings } from "@/content/strings";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 import type { ContentPage } from "@/content/types";
 import {
   categoryHrefFromPage,
@@ -15,6 +17,7 @@ type Props = {
 };
 
 export function AppChrome({ page, children }: Props) {
+  const strings = useStrings();
   if (page.type === "home") {
     return <>{children}</>;
   }

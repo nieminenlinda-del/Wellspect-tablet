@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { PageHeading } from "@/components/chrome/PageHeading";
 import { contentMapEntries } from "@/content/catalog";
-import { strings } from "@/content/strings";
+import { useStrings } from "@/components/i18n/LocaleProvider";
 
 export function ContentMapView() {
+  const strings = useStrings();
   const entries = contentMapEntries();
   return (
     <div className="content-page mx-auto max-w-3xl">
