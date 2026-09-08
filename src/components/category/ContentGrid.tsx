@@ -9,7 +9,7 @@ export function ContentGrid({ journey }: { journey: Journey }) {
       <div className="pointer-events-none absolute right-0 top-24 hidden h-[28rem] w-24 opacity-40 lg:block">
         <BubbleColumn />
       </div>
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+      <ul className="category-grid">
         {journey.tiles.map((tile) => (
           <li key={tile.id}>
             <Link

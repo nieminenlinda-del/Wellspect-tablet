@@ -192,10 +192,29 @@ button {
   }
 }
 
-@media (min-width: 768px) and (orientation: portrait) {
+/* Portrait tablets (Tab A8/A9+ 1200×1920): keep 2+1 even at 1200px width. */
+@media (orientation: portrait), (max-aspect-ratio: 1/1) {
   .journey-grid {
+    grid-template-columns: 1fr;
+    max-width: 22rem;
+    gap: 1.25rem;
+  }
+
+  .journey-grid > :last-child {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 640px) and (orientation: portrait),
+  (min-width: 640px) and (max-aspect-ratio: 1/1) {
+  .journey-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     max-width: 38rem;
     gap: 1.75rem;
+  }
+
+  .journey-grid > :last-child {
+    grid-column: 1 / -1;
   }
 }
 
@@ -223,6 +242,25 @@ button {
 
 .journey-circle:hover {
   background: rgb(255 255 255 / 0.15);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
 }
 
 .category-tile {

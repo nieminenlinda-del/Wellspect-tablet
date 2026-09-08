@@ -10,9 +10,9 @@ export function ProductHubView({ hub }: { hub: ProductHub }) {
         <p className="font-display text-sm font-bold tracking-wide text-ws-blue">
           {hub.kicker}
         </p>
-        <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {hub.actions.map((action) => (
-            <li key={action.id} className={action.wide ? "sm:col-span-2 xl:col-span-3" : ""}>
+            <li key={action.id} className={action.wide ? "sm:col-span-2" : ""}>
               <Link
                 href={action.href}
                 className="tile-notch flex min-h-24 items-center justify-between gap-3 border-2 border-ws-blue px-4 py-4 text-left transition hover:bg-ws-blue-soft/70 sm:min-h-[6.5rem]"
