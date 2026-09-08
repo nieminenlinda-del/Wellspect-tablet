@@ -1,5 +1,5 @@
 /* Wellspect companion shell cache. Keep CACHE_NAME in sync when assets change. */
-const CACHE_NAME = "wellspect-shell-v2";
+const CACHE_NAME = "wellspect-shell-v3";
 
 function withBase(path) {
   const scopePath = new URL(self.registration.scope).pathname.replace(/\/$/, "");
@@ -18,6 +18,14 @@ const PRECACHE = [
   "/manifest.webmanifest",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
+  "/products/origo-pack.png",
+  "/products/primo-pack.png",
+  "/products/classic-cath.png",
+  "/products/sense-pack.png",
+  "/products/elle-pack.png",
+  "/products/hydrokit-pack.png",
+  "/products/navina-smart.png",
+  "/products/navina-classic.png",
 ].map(withBase);
 
 self.addEventListener("install", (event) => {
