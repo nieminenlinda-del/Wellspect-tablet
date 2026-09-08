@@ -33,8 +33,8 @@ export function AppChrome({ page, children }: Props) {
   const title = chromeTitle(page);
 
   return (
-    <div className="flex min-h-dvh flex-col bg-white">
-      <header className="relative z-10 border-b border-ws-line/50 px-4 pb-3 pt-[calc(var(--safe-top)+0.85rem)] sm:px-7">
+    <div className="flex h-dvh flex-col overflow-hidden bg-white">
+      <header className="relative z-10 shrink-0 border-b border-ws-line/50 bg-white/95 px-4 pb-2 pt-[calc(var(--safe-top)+0.65rem)] backdrop-blur sm:px-7">
         <div className="mx-auto flex max-w-6xl items-start justify-between gap-4">
           <div className="page-curve min-w-0 pl-8 pt-1">
             <p className="font-display text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-ws-blue-mid">
@@ -42,7 +42,7 @@ export function AppChrome({ page, children }: Props) {
                 ? "Användarinstruktioner"
                 : "Wellspect"}
             </p>
-            <h1 className="font-display text-3xl font-light tracking-wide text-ws-blue sm:text-4xl">
+            <h1 className="font-display text-2xl font-light tracking-wide text-ws-blue sm:text-4xl">
               {title}
             </h1>
           </div>
@@ -50,11 +50,11 @@ export function AppChrome({ page, children }: Props) {
         </div>
       </header>
 
-      <main id="innehall" className="relative mx-auto w-full max-w-6xl flex-1 px-4 py-5 sm:px-7 sm:py-7">
+      <main id="innehall" className="relative mx-auto w-full max-w-6xl flex-1 overflow-y-auto px-4 py-4 sm:px-7 sm:py-5">
         {children}
       </main>
 
-      <footer className="border-t-2 border-ws-blue px-3 pb-[calc(var(--safe-bottom)+0.7rem)] pt-3 sm:px-6">
+      <footer className="shrink-0 border-t-2 border-ws-blue bg-white px-3 pb-[calc(var(--safe-bottom)+0.55rem)] pt-2 sm:px-6">
         <nav
           aria-label="Appnavigering"
           className="mx-auto flex max-w-6xl items-center justify-between gap-2"

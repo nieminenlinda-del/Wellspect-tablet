@@ -14,7 +14,7 @@ export function ContentGrid({ journey }: { journey: Journey }) {
           <li key={tile.id}>
             <Link
               href={tile.href}
-              className="tile-notch flex min-h-[11.5rem] flex-col justify-between border-2 border-ws-blue bg-white p-4 transition hover:bg-ws-blue-soft/60"
+              className="tile-notch flex min-h-[9.5rem] flex-col justify-between border-2 border-ws-blue bg-white p-3 transition hover:bg-ws-blue-soft/60 sm:min-h-[10.5rem] sm:p-4"
             >
               <div className="flex items-start justify-between gap-3">
                 <h2 className="font-display text-xl font-semibold text-ws-blue-deep">
@@ -26,7 +26,7 @@ export function ContentGrid({ journey }: { journey: Journey }) {
                   </span>
                 ) : null}
               </div>
-              <div className="mx-auto h-24 w-36">
+              <div className="mx-auto h-20 w-32 sm:h-24 sm:w-36">
                 <Illustration id={tile.illustration} title={tile.title} />
               </div>
               {tile.caption ? (
